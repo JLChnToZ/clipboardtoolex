@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 using Mutex = System.Threading.Mutex;
-using System.Security.Permissions;
 
 namespace ClipboardManager {
     internal static class Program {
@@ -463,7 +462,6 @@ namespace ClipboardManager {
                     return value is string && string.Equals(value as string, Application.ExecutablePath, StringComparison.Ordinal);
                 }
             }
-            [PrincipalPermission(SecurityAction.Demand, Role = "Administrators")]
             set {
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
                     if (value)
