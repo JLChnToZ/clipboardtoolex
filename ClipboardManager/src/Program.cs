@@ -188,11 +188,12 @@ namespace ClipboardManager {
             NumericUpDown interval = sender as NumericUpDown;
             cleanupTimer.Stop();
             cleanUpEnabled = interval.Value > 0;
+            Properties.Settings.Default.autoCleanInterval = (int)interval.Value * 1000;
             if (cleanUpEnabled) {
-                cleanupTimer.Interval = Properties.Settings.Default.autoCleanInterval = (int)interval.Value * 1000;
+                cleanupTimer.Interval = Properties.Settings.Default.autoCleanInterval;
                 HandleClipboard(false, Clipboard.GetDataObject());
-                Properties.Settings.Default.Save();
             }
+            Properties.Settings.Default.Save();
         }
 
         private static void HandleHistoryCountChange(object sender, EventArgs e) {
