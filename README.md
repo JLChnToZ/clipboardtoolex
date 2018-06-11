@@ -1,0 +1,2 @@
+# clipboardtoolex
+Simple Clipboard Manager
