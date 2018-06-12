@@ -54,6 +54,12 @@
     <Compile Include="src\ClipboardNotifier.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="src\HistoryMenu.cs" />
+    <Compile Include="Language.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Language.resx</DependentUpon>
+    </Compile>
     <Compile Include="src\Program.cs" />
     <Compile Include="src\SingleInstanceApplicationHandler.cs" />
     <Compile Include="src\UIHelper.cs" />
@@ -64,6 +70,13 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Language.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Language.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language.zh.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
