@@ -113,7 +113,6 @@ namespace ClipboardManager {
             });
 
             history.root.Enabled = settings.maxHistoryObjects > 0;
-            history.MaxHistoryObjects = settings.maxHistoryObjects;
             
             HandleClipboard(false, Clipboard.GetDataObject());
             Application.ApplicationExit += HandleApplicationExit;
@@ -126,11 +125,9 @@ namespace ClipboardManager {
             if (hasData) {
                 if (startTimer && settings.autoCleanInterval > 0)
                     cleanupTimer.Start();
-                if (history.root.HasDropDownItems) {
-                    history.ClearHistory();
-                    if (settings.maxHistoryObjects > 0)
-                        history.RecordHistory(dataObject);
-                }
+                history.ClearHistory(Math.Max(0, settings.maxHistoryObjects - 1));
+                if (settings.maxHistoryObjects > 0)
+                    history.RecordHistory(dataObject);
             }
         }
 
@@ -146,8 +143,7 @@ namespace ClipboardManager {
         }
 
         private void HandleHistoryCountChange(object sender, EventArgs e) {
-            settings.maxHistoryObjects = (int)(sender as NumericUpDown).Value;
-            history.MaxHistoryObjects = settings.maxHistoryObjects = (int)(sender as NumericUpDown).Value;
+            history.ClearHistory(settings.maxHistoryObjects = (int)(sender as NumericUpDown).Value);
             history.root.Enabled = settings.maxHistoryObjects > 0;
             settings.Save();
         }

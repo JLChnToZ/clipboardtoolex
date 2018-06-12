@@ -9,19 +9,10 @@ using TSSeparator = System.Windows.Forms.ToolStripSeparator;
 
 namespace ClipboardManager {
     internal class HistoryMenu {
-        private int maxHistoryObjects;
         public bool removeOnUse;
         public readonly TSMenuItem root;
         private readonly List<TSMenuItem> list = new List<TSMenuItem>();
         private readonly HashSet<TSMenuItem> unused = new HashSet<TSMenuItem>();
-
-        public int MaxHistoryObjects {
-            get { return maxHistoryObjects; }
-            set {
-                maxHistoryObjects = value;
-                ClearHistory();
-            }
-        }
 
         public HistoryMenu(string text) {
             root = new TSMenuItem(text);
@@ -59,10 +50,8 @@ namespace ClipboardManager {
             list.Add(item);
         }
 
-        public void ClearHistory(bool cleanAll = false) {
-            ToolStripItemCollection children = root.DropDownItems;
-            int cleanCount = cleanAll ? 0 : Math.Max(0, maxHistoryObjects - 1);
-            while (list.Count > cleanCount)
+        public void ClearHistory(int howManyLeft = 0) {
+            while (list.Count > howManyLeft)
                 RemoveHistory(list[0]);
         }
 
@@ -89,7 +78,7 @@ namespace ClipboardManager {
         }
 
         private void HandleClearClick(object sender, EventArgs e) {
-            ClearHistory(true);
+            ClearHistory();
         }
 
         private static DataObject CloneDataObject(IDataObject dataObject) {
