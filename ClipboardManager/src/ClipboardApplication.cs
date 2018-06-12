@@ -87,6 +87,7 @@ namespace ClipboardManager {
                 dataDisplay,
                 imageDataDisplay,
                 new TSMenuItem(Language.ClearNow, null, HandleCleanUpClicked),
+                new TSMenuItem(Language.Pin, null, HandlePinClick),
 
                 new TSSeparator(),
 

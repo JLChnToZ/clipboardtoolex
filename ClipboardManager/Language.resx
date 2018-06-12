@@ -177,6 +177,9 @@
   <data name="OnClearTitle" xml:space="preserve">
     <value>Clipboard Cleared</value>
   </data>
+  <data name="Pin" xml:space="preserve">
+    <value>&amp;Pin</value>
+  </data>
   <data name="PinnedMenu" xml:space="preserve">
     <value>P&amp;inned</value>
   </data>

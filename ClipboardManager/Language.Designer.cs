@@ -241,6 +241,15 @@ namespace ClipboardManager {
         }
         
         /// <summary>
+        ///   查詢類似 &amp;Pin 的當地語系化字串。
+        /// </summary>
+        public static string Pin {
+            get {
+                return ResourceManager.GetString("Pin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 P&amp;inned 的當地語系化字串。
         /// </summary>
         public static string PinnedMenu {

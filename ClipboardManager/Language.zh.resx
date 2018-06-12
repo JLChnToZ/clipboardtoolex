@@ -177,6 +177,9 @@
   <data name="OnClearTitle" xml:space="preserve">
     <value>剪貼簿已被清理</value>
   </data>
+  <data name="Pin" xml:space="preserve">
+    <value>記住 (&amp;P)</value>
+  </data>
   <data name="PinnedMenu" xml:space="preserve">
     <value>已手動記住 (&amp;I)</value>
   </data>
