@@ -233,7 +233,7 @@ namespace ClipboardManager {
                 if (dataObject.GetDataPresent(DataFormats.UnicodeText, true)) {
                     string data = dataObject.GetData(DataFormats.UnicodeText, true) as string;
                     data = data.Replace('\r', ' ').Replace('\n', ' ').Replace('\t', ' ');
-                    if (data.Length > 256)
+                    if (data.Length > 30)
                         dataDisplay.Text = string.Format(Language.TextData, data.Substring(0, 30));
                     else
                         dataDisplay.Text = data;
