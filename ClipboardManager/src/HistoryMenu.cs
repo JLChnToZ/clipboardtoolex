@@ -9,7 +9,7 @@ using TSSeparator = System.Windows.Forms.ToolStripSeparator;
 
 namespace ClipboardManager {
     internal class HistoryMenu {
-        public int maxHistoryObjects;
+        private int maxHistoryObjects;
         public bool removeOnUse;
         public readonly TSMenuItem root;
         private readonly List<TSMenuItem> list = new List<TSMenuItem>();

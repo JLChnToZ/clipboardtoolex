@@ -60,6 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
+    <Compile Include="src\Native.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\SingleInstanceApplicationHandler.cs" />
     <Compile Include="src\UIHelper.cs" />

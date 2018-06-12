@@ -42,10 +42,9 @@ namespace ClipboardManager {
         private const string RUN_KEY = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
         private static bool RunAtStartup {
             get {
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(RUN_KEY, false)) {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(RUN_KEY, false))
                     return key.GetValue(Application.ProductName) is string value &&
                         string.Equals(value, Application.ExecutablePath, StringComparison.Ordinal);
-                }
             }
             set {
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey(RUN_KEY, true)) {
@@ -113,6 +112,7 @@ namespace ClipboardManager {
             });
 
             history.root.Enabled = settings.maxHistoryObjects > 0;
+            history.MaxHistoryObjects = settings.maxHistoryObjects;
             
             HandleClipboard(false, Clipboard.GetDataObject());
             Application.ApplicationExit += HandleApplicationExit;
@@ -260,7 +260,8 @@ namespace ClipboardManager {
                     foreach (string fileName in data) {
                         Bitmap icon = null;
                         try {
-                            icon = Icon.ExtractAssociatedIcon(fileName).ToBitmap();
+                            using(Icon rawIcon = Native.GetSmallIcon(fileName))
+                                icon = rawIcon.ToBitmap();
                         } catch (Exception) { }
                         TSMenuItem item = new TSMenuItem(Path.GetFileName(fileName)) {
                             Tag = fileName,
