@@ -76,6 +76,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Language.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Language.zh-CN.resx" />
     <EmbeddedResource Include="Language.zh.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
