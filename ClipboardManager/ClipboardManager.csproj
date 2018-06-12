@@ -36,6 +36,9 @@
   <PropertyGroup>
     <StartupObject>ClipboardManager.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>main.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
@@ -79,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Language.zh-CN.resx" />
     <EmbeddedResource Include="Language.zh.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="main.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

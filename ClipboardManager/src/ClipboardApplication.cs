@@ -18,7 +18,7 @@ namespace ClipboardManager {
     internal class ClipboardApplication {
         private readonly Settings settings = Settings.Default;
         private readonly NotifyIcon notifyIcon = new NotifyIcon {
-            Icon = SystemIcons.Application,
+            Icon = Language.mainicon,
             Text = Application.ProductName,
             ContextMenuStrip = new ContextMenuStrip(),
             Visible = true,

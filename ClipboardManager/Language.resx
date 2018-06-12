@@ -153,6 +153,10 @@
   <data name="ImageData" xml:space="preserve">
     <value>Image ({0}x{1})</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="mainicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>main.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="NotifyChanges" xml:space="preserve">
     <value>&amp;Notify on Clipboard Change</value>
   </data>

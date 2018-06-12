@@ -169,6 +169,16 @@ namespace ClipboardManager {
         }
         
         /// <summary>
+        ///   查詢類似 (圖示) 的類型 System.Drawing.Icon 當地語系化資源。
+        /// </summary>
+        public static System.Drawing.Icon mainicon {
+            get {
+                object obj = ResourceManager.GetObject("mainicon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 &amp;Notify on Clipboard Change 的當地語系化字串。
         /// </summary>
         public static string NotifyChanges {
