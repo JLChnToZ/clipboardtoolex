@@ -50,14 +50,18 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="src\ClipboardApplication.cs" />
     <Compile Include="src\ClipboardNotifier.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="src\Program.cs" />
+    <Compile Include="src\SingleInstanceApplicationHandler.cs" />
+    <Compile Include="src\UIHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>

@@ -24,7 +24,7 @@ namespace ClipboardManager {
             Visible = false;
             nextClipboardViewer = (IntPtr)SetClipboardViewer((int)Handle);
         }
-
+        
         public event EventHandler<ClipboardChangedEventArgs> ClipboardChanged;
 
         protected override void Dispose(bool disposing) {
