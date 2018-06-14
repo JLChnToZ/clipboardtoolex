@@ -148,7 +148,7 @@
     <value>忘记 (&amp;R)</value>
   </data>
   <data name="HistoryMenu" xml:space="preserve">
-    <value>历史记录 (&amp;H)</value>
+    <value>历史记录</value>
   </data>
   <data name="ImageData" xml:space="preserve">
     <value>图片 ({0}x{1})</value>
@@ -181,7 +181,7 @@
     <value>记住 (&amp;P)</value>
   </data>
   <data name="PinnedMenu" xml:space="preserve">
-    <value>已手动记住 (&amp;I)</value>
+    <value>已记住</value>
   </data>
   <data name="RestoreHistory" xml:space="preserve">
     <value>拿出放到剪贴板 (&amp;R)</value>

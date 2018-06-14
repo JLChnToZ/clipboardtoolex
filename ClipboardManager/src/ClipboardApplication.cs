@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ClipboardManager.Properties;
 
 using TSItem = System.Windows.Forms.ToolStripItem;
+using TSItems = System.Windows.Forms.ToolStripItemCollection;
 using TSMenuItem = System.Windows.Forms.ToolStripMenuItem;
 using TSLabel = System.Windows.Forms.ToolStripLabel;
 using TSSeparator = System.Windows.Forms.ToolStripSeparator;
@@ -36,8 +37,8 @@ namespace ClipboardManager {
             BackgroundImageLayout = ImageLayout.Zoom,
         };
         private readonly HistoryMenu
-            pinned = new HistoryMenu(Language.PinnedMenu),
-            history = new HistoryMenu(Language.HistoryMenu) { removeOnUse = true };
+            pinned,
+            history;
 
         private const string RUN_KEY = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
         private static bool RunAtStartup {
@@ -58,11 +59,11 @@ namespace ClipboardManager {
 
         public ClipboardApplication() {
             clipboardNotifier.ClipboardChanged += HandleClipboard;
-            
-            if(settings.autoCleanInterval > 0)
+
+            if (settings.autoCleanInterval > 0)
                 cleanupTimer.Interval = settings.autoCleanInterval * 1000;
             cleanupTimer.Tick += HandleCleanUpClicked;
-            
+
             notifyIcon.DoubleClick += HandleCleanUpClicked;
 
             NumericUpDown intervalItemBox = new NumericUpDown {
@@ -78,7 +79,8 @@ namespace ClipboardManager {
             };
             historyCountBox.ValueChanged += HandleHistoryCountChange;
 
-            notifyIcon.ContextMenuStrip.Items.AddRange(new TSItem[] {
+            TSItems children = notifyIcon.ContextMenuStrip.Items;
+            children.AddRange(new TSItem[] {
                 new TSLabel(string.Format(Language.Caption, Application.ProductName, Application.ProductVersion)),
 
                 new TSSeparator(),
@@ -90,10 +92,17 @@ namespace ClipboardManager {
                 new TSMenuItem(Language.Pin, null, HandlePinClick),
 
                 new TSSeparator(),
+            });
 
-                pinned.root,
-                history.root,
+            pinned = new HistoryMenu(children, Language.PinnedMenu);
 
+            children.Add(new TSSeparator());
+
+            history = new HistoryMenu(children, Language.HistoryMenu) {
+                removeOnUse = true
+            };
+
+            children.AddRange(new TSItem[] {
                 new TSSeparator(),
 
                 new TSLabel(Language.AutoCleanAt),
@@ -112,8 +121,6 @@ namespace ClipboardManager {
                 new TSMenuItem(Language.Exit, null, HandleExitClick),
             });
 
-            history.root.Enabled = settings.maxHistoryObjects > 0;
-            
             HandleClipboard(false, Clipboard.GetDataObject());
             Application.ApplicationExit += HandleApplicationExit;
         }
@@ -144,7 +151,6 @@ namespace ClipboardManager {
 
         private void HandleHistoryCountChange(object sender, EventArgs e) {
             history.ClearHistory(settings.maxHistoryObjects = (int)(sender as NumericUpDown).Value);
-            history.root.Enabled = settings.maxHistoryObjects > 0;
             settings.Save();
         }
 
@@ -248,7 +254,7 @@ namespace ClipboardManager {
                         dataDisplay.Text = string.Format(Language.TextData, formattedData.Substring(0, 30));
                     else
                         dataDisplay.Text = formattedData;
-                    if(data.Length > 512)
+                    if (data.Length > 512)
                         dataDisplay.ToolTipText = string.Format(Language.TextData, data.Substring(0, 512));
                     else
                         dataDisplay.ToolTipText = data;
@@ -276,7 +282,7 @@ namespace ClipboardManager {
                     foreach (string fileName in data) {
                         Bitmap icon = null;
                         try {
-                            using(Icon rawIcon = Native.GetSmallIcon(fileName))
+                            using (Icon rawIcon = Native.GetSmallIcon(fileName))
                                 icon = rawIcon.ToBitmap();
                         } catch (Exception) { }
                         TSMenuItem item = new TSMenuItem(Path.GetFileName(fileName)) {

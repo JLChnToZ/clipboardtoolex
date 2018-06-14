@@ -151,7 +151,7 @@ namespace ClipboardManager {
         }
         
         /// <summary>
-        ///   查詢類似 &amp;History 的當地語系化字串。
+        ///   查詢類似 History 的當地語系化字串。
         /// </summary>
         public static string HistoryMenu {
             get {
@@ -260,7 +260,7 @@ namespace ClipboardManager {
         }
         
         /// <summary>
-        ///   查詢類似 P&amp;inned 的當地語系化字串。
+        ///   查詢類似 Pinned 的當地語系化字串。
         /// </summary>
         public static string PinnedMenu {
             get {

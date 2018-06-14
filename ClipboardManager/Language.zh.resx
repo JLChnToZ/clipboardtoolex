@@ -181,7 +181,7 @@
     <value>記住 (&amp;P)</value>
   </data>
   <data name="PinnedMenu" xml:space="preserve">
-    <value>已手動記住 (&amp;I)</value>
+    <value>已記住</value>
   </data>
   <data name="RestoreHistory" xml:space="preserve">
     <value>拿出放到剪貼簿 (&amp;R)</value>

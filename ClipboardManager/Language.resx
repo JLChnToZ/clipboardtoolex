@@ -148,7 +148,7 @@
     <value>Fo&amp;rget</value>
   </data>
   <data name="HistoryMenu" xml:space="preserve">
-    <value>&amp;History</value>
+    <value>History</value>
   </data>
   <data name="ImageData" xml:space="preserve">
     <value>Image ({0}x{1})</value>
@@ -185,7 +185,7 @@
     <value>&amp;Pin</value>
   </data>
   <data name="PinnedMenu" xml:space="preserve">
-    <value>P&amp;inned</value>
+    <value>Pinned</value>
   </data>
   <data name="RestoreHistory" xml:space="preserve">
     <value>&amp;Restore</value>
