@@ -148,7 +148,7 @@
     <value>忘記 (&amp;R)</value>
   </data>
   <data name="HistoryMenu" xml:space="preserve">
-    <value>歷史記錄 (&amp;H)</value>
+    <value>歷史記錄</value>
   </data>
   <data name="ImageData" xml:space="preserve">
     <value>圖片 ({0}x{1})</value>
