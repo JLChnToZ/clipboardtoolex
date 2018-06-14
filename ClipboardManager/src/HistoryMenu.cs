@@ -56,10 +56,20 @@ namespace ClipboardManager {
         }
 
         private void RemoveHistory(TSMenuItem item) {
-            item.Tag = null;
             root.DropDownItems.Remove(item);
-            list.RemoveAt(0);
+            list.Remove(item);
             unused.Add(item);
+            item.Tag = null;
+            foreach(TSItem child in item.DropDownItems) {
+                if (child.BackgroundImage != null) {
+                    child.BackgroundImage.Dispose();
+                    child.BackgroundImage = null;
+                }
+                if(child.Image != null) {
+                    child.Image.Dispose();
+                    child.Image = null;
+                }
+            }
         }
 
         private void HandleUseClick(object sender, EventArgs e) {

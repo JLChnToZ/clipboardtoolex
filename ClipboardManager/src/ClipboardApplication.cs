@@ -207,6 +207,7 @@ namespace ClipboardManager {
                 hasData = true;
                 dataDisplay.Visible = true;
                 dataDisplay.Enabled = false;
+                dataDisplay.ToolTipText = string.Empty;
                 dataDisplay.Text = string.Empty;
                 if (dataDisplay.HasDropDownItems) {
                     if (imageDataDisplay == null) {
@@ -217,22 +218,40 @@ namespace ClipboardManager {
                                 break;
                             } else if (item.Tag is string)
                                 pendingRemoveItems.Add(item);
-                        foreach (TSItem item in pendingRemoveItems)
+                        foreach (TSItem item in pendingRemoveItems) {
+                            if (item.Image != null) {
+                                item.Image.Dispose();
+                                item.Image = null;
+                            }
                             dataDisplay.DropDownItems.Remove(item);
-                    } else
+                        }
+                    } else {
+                        foreach (TSItem item in dataDisplay.DropDownItems)
+                            if (item.Image != null) {
+                                item.Image.Dispose();
+                                item.Image = null;
+                            }
                         dataDisplay.DropDownItems.Clear();
+                    }
                 }
                 if (imageDataDisplay != null) {
                     imageDataDisplay.Visible = false;
-                    imageDataDisplay.BackgroundImage = null;
+                    if (imageDataDisplay.BackgroundImage != null) {
+                        imageDataDisplay.BackgroundImage.Dispose();
+                        imageDataDisplay.BackgroundImage = null;
+                    }
                 }
                 if (dataObject.GetDataPresent(DataFormats.UnicodeText, true)) {
                     string data = dataObject.GetData(DataFormats.UnicodeText, true) as string;
-                    data = data.Replace('\r', ' ').Replace('\n', ' ').Replace('\t', ' ');
-                    if (data.Length > 30)
-                        dataDisplay.Text = string.Format(Language.TextData, data.Substring(0, 30));
+                    string formattedData = data.Replace('\r', ' ').Replace('\n', ' ').Replace('\t', ' ');
+                    if (formattedData.Length > 30)
+                        dataDisplay.Text = string.Format(Language.TextData, formattedData.Substring(0, 30));
                     else
-                        dataDisplay.Text = data;
+                        dataDisplay.Text = formattedData;
+                    if(data.Length > 512)
+                        dataDisplay.ToolTipText = string.Format(Language.TextData, data.Substring(0, 512));
+                    else
+                        dataDisplay.ToolTipText = data;
                 } else if (dataObject.GetDataPresent(DataFormats.Bitmap)) {
                     Image data = dataObject.GetData(DataFormats.Bitmap) as Image;
                     string imgMeta = string.Format(Language.ImageData, data.Width, data.Height);
@@ -271,8 +290,13 @@ namespace ClipboardManager {
                     using (Stream data = dataObject.GetData(DataFormats.WaveAudio) as Stream)
                         dataDisplay.Text = string.Format(Language.AudioData, data.Length);
                 } else {
-                    dataDisplay.Visible = false;
-                    hasData = false;
+                    string[] formats = dataObject.GetFormats(false);
+                    if (formats.Length > 0) {
+                        dataDisplay.Text = string.Join(", ", formats);
+                    } else {
+                        dataDisplay.Visible = false;
+                        hasData = false;
+                    }
                 }
             } catch (Exception) { }
             return hasData;
@@ -284,9 +308,8 @@ namespace ClipboardManager {
                 notifyIcon.BalloonTipTitle = Language.OnChangeTitle;
                 if (dataObject.GetDataPresent(DataFormats.UnicodeText, true)) {
                     string data = dataObject.GetData(DataFormats.UnicodeText, true) as string;
-                    data = data.Replace('\r', ' ').Replace('\n', ' ').Replace('\t', ' ');
-                    if (data.Length > 256)
-                        notifyIcon.BalloonTipText = string.Format(Language.OnChangeTextData, data.Substring(0, 256), data.Length - 256);
+                    if (data.Length > 64)
+                        notifyIcon.BalloonTipText = string.Format(Language.OnChangeTextData, data.Substring(0, 64), data.Length - 64);
                     else
                         notifyIcon.BalloonTipText = data;
                 } else if (dataObject.GetDataPresent(DataFormats.Bitmap)) {
@@ -308,8 +331,13 @@ namespace ClipboardManager {
                     using (Stream data = dataObject.GetData(DataFormats.WaveAudio) as Stream)
                         notifyIcon.BalloonTipText = string.Format(Language.OnChangeAudioData, data.Length);
                 } else {
-                    notifyIcon.BalloonTipTitle = Language.OnClearTitle;
-                    notifyIcon.BalloonTipText = Language.OnClearDescription;
+                    string[] formats = dataObject.GetFormats(false);
+                    if (formats.Length > 0) {
+                        notifyIcon.BalloonTipText = string.Join(", ", formats);
+                    } else {
+                        notifyIcon.BalloonTipTitle = Language.OnClearTitle;
+                        notifyIcon.BalloonTipText = Language.OnClearDescription;
+                    }
                 }
                 notifyIcon.ShowBalloonTip(5000);
             } catch (Exception) { }
